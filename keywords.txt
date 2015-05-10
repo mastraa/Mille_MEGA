@@ -1,0 +1,89 @@
+#######################################
+# Syntax Coloring Map For Mille
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Mille	KEYWORD1
+Secure	KEYWORD1
+I2C	KEYWORD1
+MPU6050	KEYWORD1
+HMC5883L	KEYWORD1
+AHRSFILTER	KEYWORD1
+ATTINY	KEYWORD1
+LCD_I2C	KEYWORD1
+LCD_CLASSIC	KEYWORD1
+SDCARD	KEYWORD1
+LED	KEYWORD1
+GPS	KEYWORD1
+WIND	KEYWORD1
+TEMP	KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+Mille_UNO	KEYWORD2
+Mille_MEGA	KEYWORD2
+
+
+secureOff	KEYWORD2
+
+writeTo	KEYWORD2
+readFrom	KEYWORD2
+
+readMPU	KEYWORD2
+offsetGyr	KEYWORD2
+setMPU	KEYWORD2
+readHMC	KEYWORD2
+setHMC	KEYWORD2
+
+Filter	KEYWORD2
+start	KEYWORD2
+
+getName	KEYWORD2
+getFreeName	KEYWORD2
+setName	KEYWORD2
+openFile	KEYWORD2
+closeFile	KEYWORD2
+printFile	KEYWORD2
+newLineFile	KEYWORD2
+tabFile	KEYWORD2
+readFile	KEYWORD2
+
+printMVUP	KEYWORD2
+printMVUPC	KEYWORD2
+
+Attitude	KEYWORD2
+
+readGPS	KEYWORD2
+autoset	KEYWORD2
+
+receive	KEYWORD2
+send	KEYWORD2
+getAddress	KEYWORD2
+
+check	KEYWORD2
+getTemp	KEYWORD2
+
+onOff	KEYWORD2
+
+getCheckSum	KEYWORD2
+serialRaw	KEYWORD2
+serialAttitude	KEYWORD2
+serialGPS	KEYWORD2
+printSerial	KEYWORD2
+
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+
