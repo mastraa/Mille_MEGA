@@ -183,6 +183,8 @@ public:
     void printMVUPC(struct Mvupc_t mvupc);
     void printMVUP(struct Mvup_t mvup);
     
+    char* publicName;
+    
 private:
     char* _name;
     byte _pin;
@@ -208,7 +210,8 @@ class LCD_I2C: public LiquidCrystal_I2C
 public:
     LCD_I2C(byte address, byte col, byte row);
     void start();
-    void Attitude (float* attitude); 
+    void Attitude (float* attitude);
+    void AttitudeShort (float* attitude, char* string);
 };
 
 class LCD_CLASSIC: public LiquidCrystal
@@ -216,7 +219,8 @@ class LCD_CLASSIC: public LiquidCrystal
 public:
     LCD_CLASSIC(byte rs, byte enable, byte d4, byte d5, byte d6, byte d7, byte col, byte row);
     void start();
-    void Attitude (float* attitude); 
+    void Attitude (float* attitude);
+    void AttitudeShort (float* attitude, char* string);
 private:
     byte _col;
     byte _row;

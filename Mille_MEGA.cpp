@@ -375,6 +375,7 @@ char* SDCARD::getFreeName(char* name, byte i, boolean n){
 
 void SDCARD::setName(char* name){
     _name=name;
+    publicName=name;
 }
 
 void SDCARD::openFile(){ //default FILE_READ
@@ -503,12 +504,19 @@ LCD_I2C::LCD_I2C(byte address, byte col, byte row): LiquidCrystal_I2C(address,co
 }
 void LCD_I2C::start(){
     init();
+    clear();
     backlight();
 }
 void LCD_I2C::Attitude(float* attitude){
     clear();
     print(attitude[0]);print(" ");print(attitude[1]);
     setCursor(0,1);print(attitude[2]);
+}
+void LCD_I2C::AttitudeShort(float* attitude, char* string){
+    clear();
+    print("Y");print(attitude[0],0);print(" P");print(attitude[1],0);print(" R");print(attitude[2],0);
+    setCursor(0,1);
+    print(string);
 }
 
 
@@ -518,11 +526,18 @@ LCD_CLASSIC::LCD_CLASSIC(byte rs, byte enable, byte d4, byte d5, byte d6, byte d
     }
 void LCD_CLASSIC::start(){
     begin(_col, _row);
+    clear();
 }
 void LCD_CLASSIC::Attitude(float* attitude){
     clear();
     print(attitude[0]);print(" ");print(attitude[1]);
     setCursor(0,1);print(attitude[2]);
+}
+void LCD_CLASSIC::AttitudeShort(float* attitude, char* string){
+    clear();
+    print("Y");print(attitude[0],0);print(" P");print(attitude[1],0);print(" R");print(attitude[2],0);
+    setCursor(0,1);
+    print(string);
 }
 
 
