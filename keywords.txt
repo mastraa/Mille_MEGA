@@ -57,6 +57,7 @@ printMVUP	KEYWORD2
 printMVUPC	KEYWORD2
 
 Attitude	KEYWORD2
+AttitudeShort	KEYWORD2
 
 readGPS	KEYWORD2
 autoset	KEYWORD2
