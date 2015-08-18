@@ -32,7 +32,7 @@
 
 //SECURE CLASS
 
-Secure::Secure(int pin){
+Secure::Secure(byte pin){
 	pinMode(pin, OUTPUT);
 	digitalWrite(pin, HIGH);
 	_off = pin;

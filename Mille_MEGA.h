@@ -84,7 +84,7 @@ class Secure{
      when you call secureOff it will interrupt line
      */
 public:
-	Secure(int pin);	//battery line relay pin-command
+	Secure(byte pin);	//battery line relay pin-command
 						//High level of pin-command
 	void secureOff();	//Low level of pin-command
 	
