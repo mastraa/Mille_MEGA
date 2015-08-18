@@ -865,21 +865,6 @@ uint8_t getCheckSum(char *string)
     return XOR;
 }
 
-
-//void printSerial overload funzioni
-void printSerial(char** string, int x){
-    for (int i=0; i<x; i++){
-        Serial.print(string[i]);
-        Serial.print('\t');
-    }
-}
-void printSerial(int* array, int x){
-    for (int i=0; i<x; i++){
-        Serial.print(array[i]);
-        Serial.print('\t');
-    }
-}
-
 void serialRaw(float* acc, float* gyr, float* mag){
     Serial.print(acc[0]);Serial.print('\t');
     Serial.print(acc[1]);Serial.print('\t');

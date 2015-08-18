@@ -1,6 +1,6 @@
 //=====================================================================================================
 // Mille_MEGA.h
-//Last Update: 04/04/2015
+//Last Update: 18/8/2015
 //=====================================================================================================
 //
 // Libreria per datalogger ProjectR3
@@ -275,9 +275,6 @@ private:
 uint8_t getCheckSum(char *string);
 
 //It will print all components of the array
-//Example calling function: printSerial(prova, sizeof(prova)/sizeof(char*));
-void printSerial(char** string, int x);
-void printSerial(int* array, int x);
 void serialRaw(float* acc, float* gyr, float* mag);
 void serialAttitude(float* attitude, boolean i);
 boolean serialGPS(float vel, unsigned long gradi, unsigned long date, unsigned long times, long lat, long lon, boolean i);
