@@ -278,6 +278,9 @@ uint8_t getCheckSum(char *string);
 void serialRaw(float* acc, float* gyr, float* mag);
 void serialAttitude(float* attitude, boolean i);
 boolean serialGPS(float vel, unsigned long gradi, unsigned long date, unsigned long times, long lat, long lon, boolean i);
+void printMVUP(struct Mvup_t mvup);
+void printFPVMVUP(struct Mvup_t mvup, byte mil);
+void printMVUPC(struct Mvupc_t mvup);
 
 
 #endif

@@ -906,3 +906,40 @@ boolean serialGPS(float vel, unsigned long gradi, unsigned long date, unsigned l
     Serial.print(times);Serial.print('\t');
     Serial.print(date);Serial.print('\n');
 }
+
+void printMVUPC(struct Mvupc_t mvupc){
+    Serial.print("$MVUPC,");Serial.print(millis());Serial.print(",");
+    Serial.print(mvupc.lat);Serial.print(",N,");
+    Serial.print(mvupc.lon);Serial.print(",E,");Serial.print(mvupc.vel);
+    Serial.print(",K,");Serial.print(mvupc.gradi/100);Serial.print(",C,");
+    Serial.print(mvupc.attitude[2]);Serial.print(",");Serial.print(mvupc.attitude[1]);
+    Serial.print(",");Serial.print(mvupc.attitude[0]);Serial.println(",RPY");
+}
+
+void printMVUP(struct Mvup_t mvup){
+    Serial.print("$MVUP,");Serial.print(millis());Serial.print(",");
+    Serial.print(mvup.lat);Serial.print(",N,");
+    Serial.print(mvup.lon);Serial.print(",E,");Serial.print(mvup.vel);
+    Serial.print(",K,");Serial.print(mvup.gradi/100);Serial.print(",C,");
+    Serial.print(mvup.tempDS);Serial.print("G");Serial.print(mvup.attitude[2]);
+    Serial.print(",");Serial.print(mvup.attitude[1]);
+    Serial.print(",");Serial.print(mvup.attitude[0]);Serial.print(",RPY,");
+    Serial.print(mvup.Wspeed);Serial.print(",WS,");Serial.print(mvup.vale_1);
+    Serial.print(",");Serial.print(mvup.vale_2);Serial.print(",WD,");
+    Serial.print(mvup.left);Serial.print(",");Serial.print(mvup.right);Serial.println(",L");
+}
+
+void printFPVMVUP(struct Mvup_t mvup, byte mil){
+    Serial3.print("$MVUP,");Serial3.print(millis());Serial3.print(",");
+    Serial3.print(mvup.lat);Serial3.print(",N,");
+    Serial3.print(mvup.lon);Serial3.print(",E,");Serial3.print(mvup.vel);
+    Serial3.print(",K,");Serial3.print(mvup.gradi/100);Serial3.print(",C,");
+    Serial3.print(mvup.tempDS);Serial3.print(",G");
+    delay(mil);
+    Serial3.print(mvup.attitude[2]);
+    Serial3.print(",");Serial3.print(mvup.attitude[1]);
+    Serial3.print(",");Serial3.print(mvup.attitude[0]);Serial3.print(",RPY,");
+    Serial3.print(mvup.Wspeed);Serial3.print(",WS,");Serial3.print(mvup.vale_1);
+    Serial3.print(",");Serial3.print(mvup.vale_2);Serial3.print(",WD,");
+    Serial3.print(mvup.left);Serial3.print(",");Serial3.print(mvup.right);Serial3.println(",L");
+}
