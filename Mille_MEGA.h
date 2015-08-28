@@ -265,7 +265,6 @@ public:
     bool check();
     float getTemp();
 private:
-    bool _check;
     byte _addr[8];
 };
 

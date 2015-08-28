@@ -804,26 +804,31 @@ uint64_t WIND::getAddress(bool i){
 //TEMP CLASS
 TEMP::TEMP(byte pin): OneWire(pin){};
 bool TEMP::check(){
+    bool _check;
     reset_search();  //resetta la ricerca in modo che al ciclo successivo search trovi ancora la stessa periferica
     _addr[0]=0x00;
     for (byte a=0; a<10; a++){//Controlla al massimo tra 10 periferiche
         if (!search(_addr)) {
             //no more sensors on chain, reset search
             reset_search();
-            _check = 0;
-            Serial.println("No OW sensor detected");
+            if(!_check) Serial.println("No OW sensor detected");
+            break;
             
         }
         if ( OneWire::crc8(_addr, 7) == _addr[7]) {//Se il CRC è valido
             if (_addr[0] != 0x10 && _addr[0] != 0x28) {//Non è un DS18B20
                 Serial.println("No DS18B20 recognized");
-                _check = 0;
             }
-        }
-        else{
-            _check = 1;
-            Serial.println ("DS18B20 ok");
-        }//end else
+            else{
+                _check = 1;
+                Serial.print("DS18B20 found: ");
+                for(byte i=0; i<8; ++i){
+                    Serial.print(_addr[i],HEX);
+                    Serial.print(" ");
+                }
+            }//end else
+        }//end if
+        Serial.println();
     }//end for
 }
 
@@ -921,7 +926,7 @@ void printMVUP(struct Mvup_t mvup){
     Serial.print(mvup.lat);Serial.print(",N,");
     Serial.print(mvup.lon);Serial.print(",E,");Serial.print(mvup.vel);
     Serial.print(",K,");Serial.print(mvup.gradi/100);Serial.print(",C,");
-    Serial.print(mvup.tempDS);Serial.print("G");Serial.print(mvup.attitude[2]);
+    Serial.print(mvup.tempDS);Serial.print(",G,");Serial.print(mvup.attitude[2]);
     Serial.print(",");Serial.print(mvup.attitude[1]);
     Serial.print(",");Serial.print(mvup.attitude[0]);Serial.print(",RPY,");
     Serial.print(mvup.Wspeed);Serial.print(",WS,");Serial.print(mvup.vale_1);
