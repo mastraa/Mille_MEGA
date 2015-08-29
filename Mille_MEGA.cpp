@@ -806,25 +806,25 @@ TEMP::TEMP(byte pin): OneWire(pin){};
 bool TEMP::check(){
     bool _check;
     reset_search();  //resetta la ricerca in modo che al ciclo successivo search trovi ancora la stessa periferica
-    _addr[0]=0x00;
     for (byte a=0; a<10; a++){//Controlla al massimo tra 10 periferiche
-        if (!search(_addr)) {
+        byte addr[8];
+        if (!search(addr)) {
             //no more sensors on chain, reset search
             reset_search();
             if(!_check) Serial.println("No OW sensor detected");
             break;
-            
         }
-        if ( OneWire::crc8(_addr, 7) == _addr[7]) {//Se il CRC è valido
-            if (_addr[0] != 0x10 && _addr[0] != 0x28) {//Non è un DS18B20
+        if ( OneWire::crc8(addr, 7) == addr[7]) {//Se il CRC è valido
+            if (addr[0] != 0x10 && addr[0] != 0x28) {//Non è un DS18B20
                 Serial.println("No DS18B20 recognized");
             }
             else{
                 _check = 1;
                 Serial.print("DS18B20 found: ");
                 for(byte i=0; i<8; ++i){
-                    Serial.print(_addr[i],HEX);
+                    Serial.print(addr[i],HEX);
                     Serial.print(" ");
+                    _addr[i]=addr[i];
                 }
             }//end else
         }//end if
