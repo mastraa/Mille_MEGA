@@ -272,6 +272,7 @@ private:
 //ALTRE FUNZIONI SENZA CLASSE
 
 uint8_t getCheckSum(char *string);
+uint8_t getCheckSum(byte *buff, int l)
 
 //It will print all components of the array
 void serialRaw(float* acc, float* gyr, float* mag);

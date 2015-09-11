@@ -860,12 +860,19 @@ float TEMP::getTemp(){
 
 //ALTRE FUNZIONI SENZA CLASSE
 
-uint8_t getCheckSum(char *string)
-{
+uint8_t getCheckSum(char *string){//checksum for string type
     int XOR = 0;
     for (int i = 0; i < strlen(string); i++)
     {
         XOR = XOR ^ string[i];
+    }
+    return XOR;
+}
+
+uint8_t getCheckSum(byte *buff, int l){//checksum for byte type
+    uint8_t XOR = 0;
+    for (int i=0; i<l; ++i){
+        XOR = XOR^buff[i];
     }
     return XOR;
 }
