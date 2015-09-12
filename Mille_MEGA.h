@@ -43,7 +43,7 @@
 #define MPU_PWR_MGMT_1  0x6B   //MPU6050 power control register 1
 #define MPU_PWR_MGMT_2  0x6C   //MPU6050 power control register 2
 
-#define HMC5883L_ad         0x1E
+#define HMC5883L_ad    0x1E
 #define HMC_CONF_A     0x00  //HMC5883L config register A
 #define HMC_CONF_B     0x01  //HMC5883L config register B
 #define HMC_MODE       0x02  //HMC5883L mode register

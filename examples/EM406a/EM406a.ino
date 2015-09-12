@@ -5,7 +5,11 @@
 #include <SD.h>
 #include <SPI.h>
 #include <TinyGPS.h>
-#include <Mille_UNO.h>
+#include "nRF24L01.h"
+#include "RF24.h"
+
+//includere sempre per ultimi e in questo ordine
+#include <Mille_MEGA.h>
 
 boolean fix = 0;
 long lat, lon;

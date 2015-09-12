@@ -1,11 +1,15 @@
-//INSERT LIBRARIES
 #include <Wire.h>
 #include <OneWire.h>
-#include <Mille_UNO.h>
 #include <LiquidCrystal_I2C.h>
 #include <LiquidCrystal.h>
 #include <SD.h>
 #include <SPI.h>
+#include <TinyGPS.h>
+#include "nRF24L01.h"
+#include "RF24.h"
+
+//includere sempre per ultimi e in questo ordine
+#include <Mille_MEGA.h>
 
 #define DEGTORAD        0.017453293f
 #define RADTODEG       57.295780f
@@ -36,27 +40,46 @@ float wind[2];            //speed, direction
 
 
 
-//MPU6050 MPU(MPU6050_A0);
-//HMC5883L HMC;
+MPU6050 MPU(MPU6050_A0);
+HMC5883L HMC;
 //ATTINY WIND (TINY_ADD);
 //AHRSFILTER AHRS;
 //LCD_I2C lcd(LCD_ADD, 16, 2); //indirizzo, colonne, righe
 //LCD_CLASSIC lcd(41, 43, 45, 47, 49, 48, 16, 2); rs, en, d4-7, colonne, righe
-SDCARD sd (10);
+//SDCARD sd (10);
 
 
 void setup() {
   //Starting libraries
   Wire.begin();
   Serial.begin(BAUD);
-  sd.init();
-  sd.setName(NOMEFILE);
+  //sd.init();
+  //sd.setName(NOMEFILE);
   
   
+  //ROBA per la gy_87
+  /*
+  Wire.beginTransmission(0x68);
+  Wire.write(0x37);
+  Wire.write(0x02);
+  Wire.endTransmission();
+
+  Wire.beginTransmission(0x68);
+  Wire.write(0x6A);
+  Wire.write(0x00);
+  Wire.endTransmission();
+
+  //Disable Sleep Mode
+  Wire.beginTransmission(0x68);
+  Wire.write(0x6B);
+  Wire.write(0x00);
+  Wire.endTransmission();
+  */
 
   //Initialize function
-  //MPU.setMPU(0x07, 0x04, 0x00, 0x00, 0x08, 0x00); //smprt_div, dlpf_conf, gyro_conf, acc_conf, pwr_mgmt_1, pwr_mgmt_2
-  //HMC.setHMC(0x00, 0x38, 0x20); //mode, conf_a, conf_b
+  MPU.setMPU(0x19, 0x1A, 0x1B, 0x1C, 0x08, 0x00); //NIMBUS
+  //MPU.setMPU(0x19, 0x04, 0x00, 0x00, 0x08, 0x00); //smprt_div, dlpf_conf, gyro_conf, acc_conf, pwr_mgmt_1, pwr_mgmt_2
+  HMC.setHMC(0x00, 0x38, 0x20); //mode, conf_a, conf_b
   //offValuesSetting(); //local function, will set offset and gain matrix, it calls MPU function
   //AHRS.start(); //initialize time variable
   //lcd.start();  //initialize lcd (classic and i2c)
@@ -67,18 +90,18 @@ void setup() {
 
 
 void loop() {
-  sd.openFile('w');
-  sd.closeFile();
+  //sd.openFile('w');
+  //sd.closeFile();
   
   
-sd.setName( sd.getFreeName (NOMEFILE, 4, 1));
-char* prova =sd.getName();
-Serial.println(prova);
+//sd.setName( sd.getFreeName (NOMEFILE, 4, 1));
+//char* prova =sd.getName();
+//Serial.println(prova);
   
   
   //IMU request
   //MPU.readMPU(offAcc, gainAcc, offGyr, gainGyr, acc, gyr); //get calibrated values
-  //MPU.readMPU(acc, gyr); //get raw values
+  MPU.readMPU(acc, gyr); //get raw values
   //HMC.readHMC(offMag, gainMag, mag);//get calibrated values values
   //HMC.readHMC(mag); //get raw values
   //AHRS.Filter(gyr, acc, mag, BETA, attitude);
@@ -88,7 +111,13 @@ Serial.println(prova);
 
   
   //WIND.readTiny(5, wind); //Read AtTiny85 wind station
-  delay(1000);
+  //delay(1000);
+  Serial.print(acc[0]);Serial.print("\t");
+  Serial.print(acc[1]);Serial.print("\t");
+  Serial.print(acc[2]);Serial.print("\n");
+  //Serial.print(mag[0]);Serial.print("\t\t");
+  //Serial.print(mag[1]);Serial.print("\t\t");
+  //Serial.print(mag[2]);Serial.print('\n');
   
   }
     
