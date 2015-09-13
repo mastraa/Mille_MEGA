@@ -272,7 +272,7 @@ private:
 //ALTRE FUNZIONI SENZA CLASSE
 
 uint8_t getCheckSum(char *string);
-uint8_t getCheckSum(byte *buff, int l)
+uint8_t getCheckSum(byte *buff, int l);
 
 //It will print all components of the array
 void serialRaw(float* acc, float* gyr, float* mag);
@@ -281,6 +281,8 @@ boolean serialGPS(float vel, unsigned long gradi, unsigned long date, unsigned l
 void printMVUP(struct Mvup_t mvup);
 void printFPVMVUP(struct Mvup_t mvup, byte mil);
 void printMVUPC(struct Mvupc_t mvup);
+void sendCommand(byte type, byte* commands, byte len, byte starter, byte ender);
+byte readCommand(byte *buff, byte lenght);
 
 
 #endif

@@ -955,3 +955,53 @@ void printFPVMVUP(struct Mvup_t mvup, byte mil){
     Serial3.print(",");Serial3.print(mvup.vale_2);Serial3.print(",WD,");
     Serial3.print(mvup.left);Serial3.print(",");Serial3.print(mvup.right);Serial3.println(",L");
 }
+
+void sendCommand(byte type, byte* commands, byte len, byte starter, byte ender){
+    byte _XOR;
+    Serial3.write(starter);
+    Serial3.write(type);
+    Serial3.print(",");
+    for (byte i=0; i<len; ++i){
+        Serial3.write(commands[i]);
+    }
+    Serial3.write('*');
+    _XOR = type^getCheckSum(commands, len);
+    Serial3.write(_XOR);
+    Serial3.write(ender);
+}
+
+byte readCommand(byte *buff, byte lenght){
+    byte error = 100;
+    byte _xor;
+    if (Serial3.available()){
+        if(Serial3.read()=='$'){
+            delay(2);
+            buff[0] = Serial3.read();
+            _xor=_xor^buff[0];
+            for(byte i = 1; i<lenght;++i){
+                delay(2);
+                Serial3.read();
+                delay(2);
+                buff[i]=Serial3.read();
+                //Serial.println(buff[i]);
+                _xor=_xor^buff[i];
+            }
+            delay(2);
+            if(Serial3.read()=='*'){
+                if(_xor==Serial3.read()){
+                    error = 0;//tutto ok
+                }
+                else error = 1;//no checksum
+            }
+            else error = 3;//no fine riga *
+        }
+        else{
+            error = 2;//no starter
+            while(Serial3.available()){
+                Serial3.read();
+                delay(2);
+            }
+        }
+    }
+    return error;
+}
