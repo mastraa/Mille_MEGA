@@ -956,7 +956,7 @@ void printFPVMVUP(struct Mvup_t mvup, byte mil){
     Serial3.print(mvup.left);Serial3.print(",");Serial3.print(mvup.right);Serial3.println(",L");
 }
 
-void sendCommand(byte type, byte* commands, byte len, byte starter, byte ender){
+void sendCommand(byte type, byte* commands, byte len, byte starter, byte ender){//send command
     byte _XOR;
     Serial3.write(starter);
     Serial3.write(type);
@@ -970,11 +970,12 @@ void sendCommand(byte type, byte* commands, byte len, byte starter, byte ender){
     Serial3.write(ender);
 }
 
-byte readCommand(byte *buff, byte lenght){
+byte readCommand(byte *buff, byte lenght){//read command receive on serial3
+    //it will read a known sequence NMEA with lenght datas
     byte error = 100;
     byte _xor;
     if (Serial3.available()){
-        if(Serial3.read()=='$'){
+        if(Serial3.read()=='$'){//if it is a starter byte (read next one)
             delay(2);
             buff[0] = Serial3.read();
             _xor=_xor^buff[0];
@@ -982,22 +983,22 @@ byte readCommand(byte *buff, byte lenght){
                 delay(2);
                 Serial3.read();
                 delay(2);
-                buff[i]=Serial3.read();
-                //Serial.println(buff[i]);
+                buff[i]=Serial3.read();//store datas in buffer
+                //Serial.println(buff[i]);//debug on serial
                 _xor=_xor^buff[i];
             }
             delay(2);
-            if(Serial3.read()=='*'){
+            if(Serial3.read()=='*'){//if we have an ender
                 if(_xor==Serial3.read()){
-                    error = 0;//tutto ok
+                    error = 0;//ok
                 }
-                else error = 1;//no checksum
+                else error = 1;//error with checksum
             }
-            else error = 3;//no fine riga *
+            else error = 3;//no ender
         }
         else{
             error = 2;//no starter
-            while(Serial3.available()){
+            while(Serial3.available()){//clean serial3 buffer
                 Serial3.read();
                 delay(2);
             }
