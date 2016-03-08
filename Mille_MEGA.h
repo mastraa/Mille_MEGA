@@ -54,14 +54,18 @@
 
 
 // STRUCTURE DEFINITIONS
-struct Mvupc_t //NMEA: Mille&una Vela UniPd Corta
+struct Mvic_t { //NMEA: Mètis Vela Infusion Check Byte
+  float ext_t, ext_u, inl_t, oul_t, ins_t;
+};
+
+struct Mvupc_t //NMEA: Mètis Vela UniPd Corta
 {
     long lat,lon;
     unsigned long gradi, date, times;
     float vel, attitude[3];
 };
 
-struct Mvup_t //NMEA: &una Vela UniPd
+struct Mvup_t //NMEA: Mètis Vela UniPd
 {
     long lat,lon;
     unsigned long gradi, date, times;
@@ -76,7 +80,27 @@ struct wind_t //Wifi wind datas
     int dir_2;
 };
 
+struct Mvicb_t { //NMEA: Mètis Vela Infusion Check Byte
+  byte tipo;
+  float ext_t, ext_u, inl_t, oul_t, ins_t;
+};
 
+struct Mvupcb_t //NMEA: Mètis Vela UniPd Corta Byte
+{   
+    byte tipo;
+    long lat,lon;
+    unsigned long gradi, date, times;
+    float vel, attitude[3];
+};
+
+struct Mvupb_t //NMEA: Mètis Vela UniPd Byte
+{
+    byte tipo;
+    long lat,lon;
+    unsigned long gradi, date, times;
+    float vel, attitude[3], tempDS, left, right;
+    byte Wspeed, vale_1, vale_2;
+};
 
 class Secure{
     /*Security function:
@@ -283,6 +307,7 @@ void printFPVMVUP(struct Mvup_t mvup, byte mil);
 void printMVUPC(struct Mvupc_t mvup);
 void sendCommand(byte type, byte* commands, byte len, byte starter, byte ender);
 byte readCommand(byte *buff, byte lenght);
+void sendStruct(byte* commands, byte len, byte starter, byte ender);
 
 
 #endif

@@ -80,6 +80,9 @@ serialRaw	KEYWORD2
 serialAttitude	KEYWORD2
 serialGPS	KEYWORD2
 printSerial	KEYWORD2
+sendCommand	KEYWORD2
+readCommand	KEYWORD2
+sendStruct	KEYWORD2
 
 
 #######################################

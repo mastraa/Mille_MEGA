@@ -1006,3 +1006,16 @@ byte readCommand(byte *buff, byte lenght){//read command receive on serial3
     }
     return error;
 }
+
+void sendStruct(byte* commands, byte len, byte starter, byte ender){
+    //to give struct lenght: byte * c = (byte *) &mvic; assuming mvic as the name of struct
+  byte _XOR;
+  Serial.write(starter);
+  for (byte i=0; i<len; ++i){
+    Serial.write(commands[i]);
+  }
+  Serial.write('*');
+  _XOR = getCheckSum(commands, len);
+  Serial.write(_XOR);
+  Serial.write(ender);
+}
