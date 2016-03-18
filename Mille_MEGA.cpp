@@ -781,12 +781,10 @@ void WIND::init(){
     }
 }
 
-bool WIND::receive(wind_t* buff){
-    bool flag = 0;
+void WIND::receive(wind_t* buff){
     if (available()){
-        flag = read(&buff, sizeof(wind_t));
+        read(&buff, sizeof(wind_t));
     }
-    return flag;
 }
 
 bool WIND::send(wind_t* buff){

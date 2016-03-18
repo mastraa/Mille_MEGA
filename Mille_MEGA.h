@@ -275,7 +275,7 @@ class WIND: public RF24
 public:
     WIND(uint8_t ce, uint8_t cs, uint64_t out, uint64_t in); //to open writing and reading pipe
     void init();
-    bool receive(wind_t* buff);
+    void receive(wind_t* buff);
     bool send(wind_t* buff);
     uint64_t getAddress(bool i); //0: OUT, 1 IN
 private:
