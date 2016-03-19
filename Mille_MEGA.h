@@ -7,7 +7,7 @@
 //
 // Date			Author					Notes
 // 11/08/2014	Andrea Mastrangelo		I release
-//
+// 
 //
 //
 //Credits:
@@ -54,7 +54,8 @@
 
 
 // STRUCTURE DEFINITIONS
-struct Mvic_t { //NMEA: Mètis Vela Infusion Check Byte
+struct Mvic_t
+{ //NMEA: Mètis Vela Infusion Check Byte
   float ext_t, ext_u, inl_t, oul_t, ins_t;
 };
 
